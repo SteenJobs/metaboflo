@@ -7,6 +7,7 @@ Metaboflo::Application.routes.draw do
   ## User routes
   devise_for :users do
     match 'landing' => 'bovine#index', :as => :user_root
+    get '/clients/sign_out' => 'devise/sessions#destroy'
   end
 
   resources :users do 
