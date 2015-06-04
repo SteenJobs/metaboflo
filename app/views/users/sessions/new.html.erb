@@ -1,3 +1,4 @@
+<!--
 <h2>User Login (Go to <%= link_to 'Client Login', new_client_session_path %>)</h2>
 
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
@@ -23,3 +24,31 @@
 <% end %>
 
 <%= render :partial => "devise/shared/links" %>
+-->
+
+
+<h1>Sign in</h1>
+
+<%= knoxy_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :id => :login }) do |f| %>
+  <fieldset>
+    <%= f.inner_field :email do %>
+      <%= f.email_field :email, :inner => true  %>
+    <% end -%>
+
+    <%= f.inner_field :password do %>
+      <%= f.password_field :password, :inner => true  %>
+    <% end -%>
+
+    <% if devise_mapping.rememberable? -%>
+      <%= f.check_box :remember_me %>
+    <% end -%>
+
+    <div class="actions submit-actions">
+      <%= f.submit "Sign in" %><br />
+    </div>
+    <div class="signin-links">
+			<%= link_to "Sign up", new_client_registration_path %><br />
+      <%= render :partial => "devise/shared/links" %>
+    </div>
+  </fieldset>
+<% end -%>
