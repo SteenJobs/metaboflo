@@ -5,18 +5,26 @@ Metaboflo::Application.routes.draw do
   match 'services' => 'public/pages#services'
   match 'download_blank_manifest' => 'public/pages#download_blank_manifest'
   ## User routes
+  devise_for :users, :controllers => { :sessions => 'sessions' }
   devise_for :users do
     match 'landing' => 'bovine#index', :as => :user_root
+    get '/users/sign_out' => 'devise/sessions#destroy' 
+    get '/users/sign_in' => 'devise/sessions#new'
+    post '/users/sign_in' => 'devise/sessions#create' 
   end
 
   resources :users do 
     resources :user_pictures
     resources :tasks
   end
-
+  
   ## Client routes 
+  devise_for :clients, :controllers => { :sessions => 'sessions' }
   devise_for :clients do
     match 'clients/home' => 'clients/home#index', :as => :client_root
+    get '/clients/sign_out' => 'devise/sessions#destroy' 
+    get '/clients/sign_in' => 'devise/sessions#new' 
+    post '/clients/sign_in' => 'devise/sessions#create' 
   end
   
   namespace :clients do

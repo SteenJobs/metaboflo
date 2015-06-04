@@ -2,7 +2,7 @@ class Task < ActiveRecord::Base
   belongs_to :status, :class_name => 'TaskStatus'
   belongs_to :priority, :class_name => 'TaskPriority'
   belongs_to :category, :class_name => 'TaskCategory'
-  belongs_to :assigned_to, :class_name => 'User'
+  belongs_to :assigned_to, :class_name => 'Client'
   
   validates_presence_of :subject
   validates_numericality_of :done_ratio, :allow_blank => true
