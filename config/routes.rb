@@ -152,5 +152,5 @@ Metaboflo::Application.routes.draw do
   match 'admin' => 'administrators#index', :as => :admin
 
   ## Route URL 
-  root :to => 'home#index'
+  root :to => 'public/pages#home'
 end
