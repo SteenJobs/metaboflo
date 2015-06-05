@@ -1,14 +1,15 @@
 class UsersController < ApplicationController
   before_filter :find_site
-
+  before_filter :find_user, :only => [ :show, :edit, :update, :destroy ]
+  before_filter :authorize
   
   # GET /users
   # GET /users.xml
   def index
     if !@site.blank?
       @users = @site.users
-    elsif current_client.admin?
-      @users = Client.find_by(admin: true)
+    elsif current_user.rank == 'Administrator' || current_user.rank == 'Superuser'
+      @users = User.find(:all)
     else
       @users = current_user.site.users
     end
@@ -95,7 +96,6 @@ class UsersController < ApplicationController
     @user = @site.blank? ? User.find(params[:id]) : @site.users.find(params[:id])
   end
 
-=begin
   def authorize
     case self.action_name
       when 'new', 'create'
@@ -118,6 +118,4 @@ class UsersController < ApplicationController
         end
     end
   end
-=end
-  
 end
