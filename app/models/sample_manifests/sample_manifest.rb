@@ -216,7 +216,7 @@ class SampleManifest < ActiveRecord::Base
     {tissue: 0,
       biofluids: 1,
       cell: 2}
-  end
+   end
   
   # Change the attatched file to .xlsx, and
   # return the new filename.
@@ -328,14 +328,19 @@ class SampleManifest < ActiveRecord::Base
   end
   # Set the sample_manifests data for all 3 sheets
   def set_sample_manifest_attributes(workbook)
+    tabs = {tissue: 0, biofluids: 1, cells: 2}
     row_column_info = common_data_cells
-    self.title = strip_decimal(workbook.cell(row_column_info[:title][0],row_column_info[:title][1]))
-    self.client_institution = strip_decimal(workbook.cell(row_column_info[:client_institution][0],
-                                            row_column_info[:client_institution][1]))
-    self.submitter_email = strip_decimal(workbook.cell(row_column_info[:submitter_email][0],
-                                         row_column_info[:submitter_email][1]))
-    self.pi_email = strip_decimal(workbook.cell(row_column_info[:pi_email][0],row_column_info[:pi_email][1]))
-    self.grant_id = strip_decimal(workbook.cell(row_column_info[:grant_id][0],row_column_info[:grant_id][1]))   
+    until !self.title.blank?
+      tabs.each do |key, value|
+        self.title = strip_decimal(workbook.cell(row_column_info[:title][0],row_column_info[:title][1],workbook.sheets[value]))
+        self.client_institution = strip_decimal(workbook.cell(row_column_info[:client_institution][0],
+                                              row_column_info[:client_institution][1],workbook.sheets[value]))
+        self.submitter_email = strip_decimal(workbook.cell(row_column_info[:submitter_email][0],
+                                           row_column_info[:submitter_email][1],workbook.sheets[value]))
+        self.pi_email = strip_decimal(workbook.cell(row_column_info[:pi_email][0],row_column_info[:pi_email][1],workbook.sheets[value]))
+        self.grant_id = strip_decimal(workbook.cell(row_column_info[:grant_id][0],row_column_info[:grant_id][1],workbook.sheets[value]))
+      end
+    end
   end
   
   def reset_manifest

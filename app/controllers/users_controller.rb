@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def index
     if !@site.blank?
       @users = @site.users
-    elsif current_user.rank == 'Administrator' || current_user.rank == 'Superuser'
+    elsif current_user.admin?
       @users = User.find(:all)
     else
       @users = current_user.site.users

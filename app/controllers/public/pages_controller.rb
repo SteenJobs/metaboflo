@@ -17,7 +17,7 @@ class Public::PagesController < ApplicationController
   def contact
   end
   
-   def download_blank_manifest
+  def download_blank_manifest
     send_file 'spreadsheets/blank_manifest.xlsm', :type => 'application/vnd.ms-excel.sheet.macroEnabled.12'
   end
   

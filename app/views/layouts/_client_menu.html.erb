@@ -2,7 +2,10 @@
   <div class="yui3-menu-content">
     <ul class="first-of-type">
       <li class="yui3-menuitem">
-        <%= link_to 'Home', client_root_path, :class => 'yui3-menuitem-content' %>
+        <%= link_to current_client.email, client_root_path, :class => 'yui3-menuitem-content' %>
+      </li>
+      <li class="yui3-menuitem">
+        <%= link_to 'Home', root_path, :class => 'yui3-menuitem-content' %>
       </li>
       <li class="yui3-menuitem">
         <%= link_to "Submit New Sample", new_clients_sample_manifest_path, :class => 'yui3-menuitem-content' %>
@@ -13,6 +16,9 @@
       <li class="yui3-menuitem">
         <%= link_to "Order Tracking", clients_samples_path, :class => 'yui3-menuitem-content' %>
       </li>
+			<li class="yui3-menuitem">
+				<%= link_to 'Blank Sample Manifest', download_blank_manifest_path %>
+			</li>
     </ul> 
   </div>
 </div>

@@ -82,6 +82,10 @@ class ClientsController < ApplicationController
     end
   end
   
+  def download_blank_manifest
+    send_file 'spreadsheets/blank_manifest.xlsm', :type => 'application/vnd.ms-excel.sheet.macroEnabled.12'
+  end
+  
   def download_barcodes
     if File.exists?(params[:barcodes_path])
       send_file params[:barcodes_path], :type => 'application/pdf', :disposition => 'inline'
